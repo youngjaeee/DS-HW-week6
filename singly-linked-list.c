@@ -174,6 +174,7 @@ int insertNode(headNode* h, int key) {
 
 		if((temp->link)==NULL)
 		{
+			printf("입력한 key보다 큰값을 가지는 노드가 없어 마지막 노드로 추가합니다.\n");
 			temp->link = node;
 			node->link = NULL;
 		}
@@ -205,7 +206,9 @@ int insertLast(headNode* h, int key) {
  */
 int deleteFirst(headNode* h) {
 
-
+	listNode* temp = h->first;
+	h->first = h->first->link;
+	free(temp);
 	return 0;
 }
 
@@ -214,6 +217,30 @@ int deleteFirst(headNode* h) {
  * list에서 key에 대한 노드 삭제
  */
 int deleteNode(headNode* h, int key) {
+
+	listNode* node = (listNode*)malloc(sizeof(listNode));
+	node->key = key;
+
+	listNode* temp;
+	listNode* prevtemp;
+	prevtemp = h->first;
+		for(temp = h->first; ; )
+		{	
+			if(temp->link == NULL)
+			{
+				printf("입력한 key와 같은 값을 가지는 노드가 없어 삭제하지 않습니다.\n");
+				break;
+			}
+
+			if((node->key)==(temp->key))
+			{
+				prevtemp->link = temp->link;
+				free(temp);
+				break;
+			}
+			prevtemp = temp;
+			temp = temp->link;
+		}
 
 	return 0;
 
