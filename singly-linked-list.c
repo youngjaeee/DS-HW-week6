@@ -154,6 +154,30 @@ int insertFirst(headNode* h, int key) {
 /* 리스트를 검색하여, 입력받은 key보다 큰값이 나오는 노드 바로 앞에 삽입 */
 int insertNode(headNode* h, int key) {
 
+	listNode* node = (listNode*)malloc(sizeof(listNode));
+	node->key = key;
+
+	listNode* temp;
+	listNode* prevtemp;
+	prevtemp = h->first;
+		for(temp = h->first; (temp->link)!=NULL; )
+		{
+
+			if((node->key)<(temp->key))
+			{
+				node->link = temp;
+				prevtemp->link = node;
+			}
+			prevtemp = temp;
+			temp = temp->link;
+		}
+
+		if((temp->link)==NULL)
+		{
+			temp->link = node;
+			node->link = NULL;
+		}
+
 	return 0;
 }
 
